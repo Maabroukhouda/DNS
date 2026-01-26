@@ -1,4 +1,4 @@
-# Déploiement du sous-domaine api-ocr.valomnia.com avec Nginx et SSL
+# Déploiement du sous-domaine api-ocr.domaine avec Nginx et SSL
 
 ## 1. Création du sous-domaine DNS
 
@@ -7,18 +7,18 @@ Accéder au provider DNS (GoDaddy) et créer un enregistrement :
 
 | Type | Nom      | Valeur             |
 | ---- | -------- | ------------------ |
-| A    | api-ocr  | 137.74.116.178     |
+| A    | api-ocr  | ip                 |
 
 
 ## 2. Installation Nginx Configuration du sous-domaine 
 * Installer Nginx
 `sudo apt install nginx -y`
 * Créer le fichier de configuration 
-`sudo nano /etc/nginx/sites-available/api-ocr.valomnia.com`
+`sudo nano /etc/nginx/sites-available/api-ocr.domaine.com`
 * Ajouter le contenu suivant 
 ```
 server {
-    server_name api-ocr.valomnia.com;
+    server_name api-ocr.domaine.com;
 
     location = / {
         return 302 /login;
@@ -37,7 +37,7 @@ server {
 
 * Activer le site et recharger Nginx
 ```
-sudo ln -s /etc/nginx/sites-available/api-ocr.valomnia.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/api-ocr.domaine.com /etc/nginx/sites-enabled/
 sudo systemctl reload nginx
 ```
 
@@ -45,13 +45,13 @@ sudo systemctl reload nginx
 * Installer Certbot et le plugin Nginx
 `sudo apt install certbot python3-certbot-nginx -y`
 * Générer le certificat pour le domaine
-`sudo certbot --nginx -d api-ocr.valomnia.com`
+`sudo certbot --nginx -d api-ocr.domaine.com`
 Pendant l’installation :
-1. Email : houda.mabrouk@valomnia.com
+1. Email : houdamabrouk32@gmail.com
 2. Terms : Accepter (Y)
 3. Redirect HTTP → HTTPS : Oui ✅
 
 * Tester le renouvellement automatique
 `sudo certbot renew --dry-run`
 * Les certificats sont stockés dans 
-`/etc/letsencrypt/live/api-ocr.valomnia.com/`
+`/etc/letsencrypt/live/api-ocr.domaine.com/`
